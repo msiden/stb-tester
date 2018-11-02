@@ -25,6 +25,7 @@ from textwrap import dedent
 
 import cv2
 import gi
+from six import reraise
 
 import _stbt.cv2_compat as cv2_compat
 from _stbt import logging
@@ -235,7 +236,7 @@ class DeviceUnderTest(object):
                     if original_exc_type is None:
                         raise
                 if original_exc_type is not None:
-                    raise original_exc_type, exc_value, exc_traceback  # pylint:disable=raising-bad-type
+                    reraise(original_exc_type, exc_value, exc_traceback)
 
     @contextmanager
     def _interpress_delay(self, interpress_delay_secs):
